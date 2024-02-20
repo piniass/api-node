@@ -18,6 +18,11 @@ app.use(morgan('dev'));
 // Middleware para analizar los cuerpos de las solicitudes entrantes como JSON
 app.use(express.json());
 
+app.use(express.urlencoded({ extended: true })); // Middleware para analizar los cuerpos de las solicitudes codificadas en URL
+
+
+//
+
 // Middleware para manejar formularios multipart
 // app.use(upload.single('ImagenBlob'));
 
