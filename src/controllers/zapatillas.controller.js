@@ -1,8 +1,8 @@
 import { getConnection } from "./../database/database"
 // const fs = require('node:fs');
-const multer = require('multer');
+// const multer = require('multer');
 
-const upload = multer({ dest: './static/img' });
+// const upload = multer({ dest: './static/img' });
 
 
 const getZapatillas = async (req, res) => {

@@ -2,12 +2,12 @@ import express from 'express';
 import morgan from 'morgan';
 import zapatillasRoutes from './routes/zapatillas.routes';
 import marcaRoutes from './routes/marca.routes';
-import multer from 'multer';
+// import multer from 'multer';
 
 const app = express();
 
 // Configuración de Multer para manejar la carga de archivos y formularios multipart
-const upload = multer({ dest: './static/img' });
+// const upload = multer({ dest: './static/img' });
 
 // Settings
 app.set('port', 80);
@@ -19,7 +19,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 // Middleware para manejar formularios multipart
-app.use(upload.single('ImagenBlob'));
+// app.use(upload.single('ImagenBlob'));
 
 // Rutas
 app.use('/api/zapatillas', zapatillasRoutes);
