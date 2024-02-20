@@ -3,7 +3,7 @@ import { methods as zapatillasController } from "../controllers/zapatillas.contr
 
 const router = Router();
 
-router.post("/", zapatillasController.uploadZapatillaImage, zapatillasController.addZapatilla);
+// router.post("/", zapatillasController.uploadZapatillaImage, zapatillasController.addZapatilla);
 
 
 router.get("/", zapatillasController.getZapatillas)

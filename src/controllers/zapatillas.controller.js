@@ -8,7 +8,9 @@ const upload = multer({ dest: './static/img' });
 const getZapatillas = async (req, res) => {
     try{
         const conecction = await getConnection();
+        // const result = await conecction.query("SELECT modelozapatilla.id, marcazapa.nombre AS 'Marca', modelozapatilla.Nombre, color, precio, imagen, imagenblob FROM modelozapatilla, marcazapa WHERE modelozapatilla.ID_MARCA = marcazapa.ID and modelozapatilla.ID ORDER BY modelozapatilla.id")
         const result = await conecction.query("SELECT modelozapatilla.id, marca.nombre AS 'Marca', modelozapatilla.Nombre, color, precio, imagen, imagenblob FROM modelozapatilla, marca WHERE modelozapatilla.ID_MARCA = marca.ID and modelozapatilla.ID ORDER BY modelozapatilla.id")
+
         console.log(result)
         res.json(result)
     } catch(error){
@@ -21,7 +23,7 @@ const getZapatilla = async (req, res) => {
     try{
         const { id } = req.params
         const conecction = await getConnection();
-        const result = await conecction.query("SELECT modelozapatilla.id, marca.nombre AS 'Marca', modelozapatilla.Nombre, color, precio FROM modelozapatilla, marca WHERE modelozapatilla.ID_MARCA = marca.ID and modelozapatilla.ID = ?", id)
+        const result = await conecction.query("SELECT modelozapatilla.id, marcazapa.nombre AS 'Marca', modelozapatilla.Nombre, color, precio FROM modelozapatilla, marcazapaarca WHERE modelozapatilla.ID_MARCA = marcazapa.ID and modelozapatilla.ID = ?", id)
         console.log(result)
         res.json(result)
     } catch(error){
@@ -31,6 +33,8 @@ const getZapatilla = async (req, res) => {
 }
 
 const addZapatilla = async (req, res) => {
+    console.log("Entro al post");
+
     try {
         console.log("Entro al post");
         const { Nombre, Color, Precio, ID_Marca } = req.body;
@@ -98,8 +102,8 @@ const updateZapatilla = async (req, res) => {
 
 const getZapatillasSorted = async (req, res) => {
     try{
-        const conecction = await getConnection();
-        const result = await conecction.query("SELECT modelozapatilla.id, marca.nombre AS 'Marca', modelozapatilla.Nombre, color, precio, imagen FROM modelozapatilla, marca WHERE modelozapatilla.ID_MARCA = marca.ID ORDER BY precio DESC")
+        const connection = await getConnection();
+        const result = await connection.query("SELECT modelozapatilla.id, marcazapa.nombre AS 'Marca', modelozapatilla.Nombre, color, precio, imagen FROM modelozapatilla, marca WHERE modelozapatilla.ID_MARCA = marcazapa.ID ORDER BY precio DESC")
         console.log(result)
         res.json(result)
     } catch(error){
@@ -116,21 +120,21 @@ function saveImage(file){
 }
 
 // Ruta para manejar la subida de archivos
- const uploadZapatillaImage = async (req, res, next) => {
-    try {
-        upload.single('ImagenBlob')(req, res, function (err) {
-            if (err instanceof multer.MulterError) {
-                return res.status(500).json({ message: "Error al subir la imagen" });
-            } else if (err) {
-                return res.status(500).json({ message: "Error al procesar la solicitud" });
-            }
-            next();
-        });
-    } catch (error) {
-        console.error(error);
-        res.status(500).send(error.message);
-    }
-};
+//  const uploadZapatillaImage = async (req, res, next) => {
+//     try {
+//         upload.single('ImagenBlob')(req, res, function (err) {
+//             if (err instanceof multer.MulterError) {
+//                 return res.status(500).json({ message: "Error al subir la imagen" });
+//             } else if (err) {
+//                 return res.status(500).json({ message: "Error al procesar la solicitud" });
+//             }
+//             next();
+//         });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).send(error.message);
+//     }
+// };
 
 export const methods = {
     getZapatillas,
@@ -138,6 +142,6 @@ export const methods = {
     addZapatilla,
     deleteZapatilla,
     updateZapatilla,
-    getZapatillasSorted,
-    uploadZapatillaImage
+    getZapatillasSorted
+    // uploadZapatillaImage
 }

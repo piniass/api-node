@@ -4,7 +4,7 @@ const getZapatillasMarca = async (req, res) => {
     try{
         const { nombre } = req.params
         const conecction = await getConnection();
-        const result = await conecction.query("SELECT modelozapatilla.id, marca.nombre AS 'Marca', modelozapatilla.Nombre, color, precio FROM modelozapatilla, marca WHERE modelozapatilla.ID_MARCA = marca.ID and marca.nombre = ?", nombre)
+        const result = await conecction.query("SELECT modelozapatilla.id, marcazapa.nombre AS 'Marca', modelozapatilla.Nombre, color, precio FROM modelozapatilla, marcazapa WHERE modelozapatilla.ID_MARCA = marcazapa.ID and marcazapa.nombre = ?", nombre)
         console.log(result)
         res.json(result)
     } catch(error){
