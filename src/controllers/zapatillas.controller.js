@@ -1,5 +1,5 @@
 import { getConnection } from "./../database/database"
-const fs = require('node:fs');
+// const fs = require('node:fs');
 const multer = require('multer');
 
 const upload = multer({ dest: './static/img' });
@@ -114,7 +114,7 @@ const getZapatillasSorted = async (req, res) => {
 
 function saveImage(file){
     const newPath = `./static/img/${file.originalname}`
-    fs.renameSync(file.path, newPath)
+    // fs.renameSync(file.path, newPath)
     return newPath
       
 }
